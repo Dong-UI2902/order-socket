@@ -1,6 +1,10 @@
+const express = require("express");
+const { createServer } = require("http");
 const { Server } = require("socket.io");
 
-const io = new Server({
+const app = express();
+const httpServer = createServer(app);
+const io = new Server(httpServer, {
   cors: {
     origin: [
       "http://localhost:3000",
@@ -28,4 +32,4 @@ io.on("connection", (socket) => {
   });
 });
 
-io.listen(8000);
+httpServer.listen(8000);
